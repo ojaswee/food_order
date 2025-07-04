@@ -29,7 +29,7 @@ function cartReducer(state, action) {
 			return {
 				...state,
 				items: updatedItems,
-				totalAmount: state.totalAmount + Number(action.item.price)
+				totalAmount: state.totalAmount + Number(action.price)
 			};
 		}
 		case 'REMOVE_ITEM': {
@@ -40,21 +40,19 @@ function cartReducer(state, action) {
 			let updatedItems;
 
 			if (existingItem.quantity > 1) {
-				// Decrease quantity
 				updatedItems = state.items.map((item, idx) =>
 					idx === existingItemIndex
 						? { ...item, quantity: item.quantity - 1 }
 						: item
 				);
 			} else {
-				// Remove item
 				updatedItems = state.items.filter(item => item.id !== action.id);
 			}
 
 			return {
 				...state,
 				items: updatedItems,
-				totalAmount: state.totalAmount - Number(action.item.price)
+				totalAmount: state.totalAmount - Number(existingItem.price)
 			};
 		}
 		case 'CLEAR_CART':

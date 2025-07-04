@@ -16,7 +16,10 @@ export default function Cart() {
 			<h2>Your Cart</h2>
 			<ul>
 				{cartCtx.items.map(item => (
-					<CartItem key={item.id} item={item} />
+					<CartItem key={item.id}
+						item={item}
+						onIncrease={() => cartCtx.addItem(item)}
+						onDecrease={() => cartCtx.removeItem(item.id)} />
 				))}
 			</ul>
 			<p className="cart-total">
@@ -24,7 +27,9 @@ export default function Cart() {
 			</p>
 			<p className="modal-actions">
 				<Button textOnly onClick={() => userProgressCtx.hideCart()}>Close</Button>
-				<Button onClick={() => userProgressCtx.hideCart()}>Checkout</Button>
+				{cartCtx.items.length > 0 && (
+					<Button onClick={() => userProgressCtx.hideCart()}>Checkout</Button>)
+				}
 			</p>
 		</Modal>
 	);
