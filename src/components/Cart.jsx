@@ -12,7 +12,7 @@ export default function Cart() {
 
 	const totalAmount = cartCtx.items.reduce((total, item) => total + (item.price * item.quantity), 0);
 	return (
-		<Modal className="cart" open={userProgressCtx.progress === 'cart'}>
+		<Modal className="cart" open={userProgressCtx.progress === 'cart'} onClose={handleClose}>
 			<h2>Your Cart</h2>
 			<ul>
 				{cartCtx.items.map(item => (
@@ -28,7 +28,7 @@ export default function Cart() {
 			<p className="modal-actions">
 				<Button textOnly onClick={() => userProgressCtx.hideCart()}>Close</Button>
 				{cartCtx.items.length > 0 && (
-					<Button onClick={() => userProgressCtx.hideCart()}>Checkout</Button>)
+					<Button onClick={() => userProgressCtx.showCheckout()}>Checkout</Button>)
 				}
 			</p>
 		</Modal>
